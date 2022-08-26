@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="stylesheet" href="https://use.typekit.net/csk0yjf.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ecoToken System</title>
+    <script>
+      if (!("theme" in localStorage)) {
+        localStorage.theme = "system";
+      }
+      if (
+        (window.matchMedia("(prefers-color-scheme: dark)").matches &&
+          localStorage.theme === "system") ||
+        localStorage.theme === "dark"
+      ) {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+    </script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,243 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Jura:wght@300;400;500;600;700&family=Source+Serif+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html,
+  body {
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    font-family: Inter, system-ui, sans-serif;
+    font-weight: 500;
+    height: 100vh;
+  }
+  #app {
+    @apply w-full h-full;
+  }
+
+  * {
+    @apply box-border m-0 p-0;
+  }
+
+  #grid {
+    display: grid;
+    grid-template-columns: minmax(0, max-content) auto;
+    grid-template-rows: auto 1fr auto;
+    grid-column-gap: 0;
+    grid-row-gap: 0;
+    width: 100vw;
+    height: 100vh;
+  }
+
+  /* grid-area: row / col / row2 / col2; */
+  #grid #cbody {
+    grid-area: 2 / 2 / 3 / 3;
+  }
+  #grid #aleft {
+    grid-area: 2 / 1 / 3 / 2;
+  }
+  #grid #chead {
+    grid-area: 1 / 1 / 2 / 3;
+  }
+  #grid #cfoot {
+    grid-area: 3 / 1 / 4 / 3;
+  }
+
+  @media (max-width: 640px) {
+    #grid #cbody {
+      grid-area: 2 / 1 / 3 / 3;
+    }
+    #grid #aleft {
+      @apply hidden w-0;
+    }
+  }
+
+  #cbody {
+    @apply overflow-auto scroll-smooth hover:scroll-auto block w-full bg-slate-200 
+                  dark:bg-slate-900;
+  }
+
+  h1 { @apply text-4xl font-black }
+  h2 { @apply text-3xl font-extrabold }
+  h3 { @apply text-2xl font-bold }
+  h4 { @apply text-xl font-semibold }
+  h5 { @apply text-lg font-medium }
+  h6 { @apply text-base font-normal }
+
+/* to format <i>eco</i><b>Token</b> */
+  .eco i { @apply not-italic font-light }
+  .eco b { @apply font-medium }
+}
+
+@layer components {
+
+  .frame {
+    @apply block w-full max-h-fit pt-4 pb-6 px-6;
+    }
+
+  .frame h2 {
+    @apply w-full font-euroext font-medium text-slate-400 dark:text-slate-300 mb-2;
+    }
+    
+
+    .extlink a,
+    .extlink a:link,
+    .extlink a:active,
+    .extlink a:visited {
+      @apply text-cyan-600
+    }
+
+    .extlink a:hover {
+      @apply text-green-600
+    }
+
+  .input01 input[type=text],
+  .input01 input[type=email],
+  .input01 input[type=password] {
+      @apply h-12 p-3 pl-6 text-lg bg-slate-50 border border-solid border-slate-50 rounded-lg;
+      box-shadow: inset 1px 2px 3px rgba(0, 0, 0, 0.4); 
+      transition: ease-in-out, width .35s ease-in-out;
+      }
+      
+  .input01 input[type=text]:focus,
+  .input01 input[type=email]:focus,
+  .input01 input[type=password]:focus {
+      outline: none !important;
+      border:1px solid rgb(14 165 233);
+      box-shadow: 0 0 7px rgb(14 165 233);
+      }
+
+  .checkbox01 input[type=checkbox] {
+      @apply w-5 h-5 bg-ecogreen-500 border-none border-0 rounded-sm
+      }
+
+
+  /* Toggle Switch Checkbox  */
+  .toggle label {
+    @apply relative inline h-9 w-[72px];
+    }
+  .toggle label input[type=checkbox]:checked + .slider:before {
+    transform: translateX(36px);
+    }
+  .toggle span {
+    @apply relative inline-block w-fit pt-1 pl-2 align-middle ;
+    }
+  .toggle label input[type=checkbox] { 
+    @apply hidden ;
+    }
+  .toggle .slider {
+    @apply absolute bg-slate-300 top-0 bottom-0 left-0 right-0 ease-in-out duration-700 cursor-pointer shadow-inner ;
+    }
+  .toggle input[type=checkbox]:checked + .slider {
+    @apply bg-ecogreen-500 shadow-inner ;
+    }
+  .toggle .slider:before {
+    content: "";
+    @apply absolute bg-slate-50  w-8 h-8 bottom-0.5 left-0.5 ease-in-out duration-700 ;
+    }
+  .toggle .slider.round { @apply rounded-3xl }
+  .toggle .slider.round:before { @apply rounded-3xl }
+
+
+  /* Large green radio buttons  */
+  .radio01 {
+    @apply flex justify-start ;
+    }
+  .radio01 input[type="radio"] {
+    @apply grid place-content-center appearance-none float-left w-9 h-9 m-0 bg-white text-3xl text-slate-400 border-slate-400 rounded-full cursor-pointer;
+    outline: 2px solid rgb(203 213 225);
+    outline-offset: -2px; 
+    }
+  .radio01 label {
+    @apply float-left w-fit pl-2 p-1 text-lg text-slate-700
+    dark:text-slate-300; 
+    }
+  .radio01 input[type="radio"]::before {
+    content: "";
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+    @apply w-6 h-6 rounded-full bg-ecogreen-300 shadow-inner; 
+    }
+  .radio01 input[type="radio"]:checked::before {
+    transform: scale(1);
+    }
+  .radio01 input[type="radio"]:focus {
+    outline: 2px solid #73A132;
+    outline-offset: -2px;
+    }
+ 
+  .submit01 {
+      @apply bg-gradient-to-b from-ecogreen-500 to-ecogreen-600 py-1.5 w-full rounded-md text-slate-300 shadow-md active:scale-95 transition-all text-slate-50 text-xl font-display;
+      box-shadow: inset -1px -2px 6px rgba(0, 0, 0, 0.4); 
+      }
+ 
+  .submit01:hover {
+      @apply bg-gradient-to-b from-sky-600 to-sky-700 text-white;
+      }
+
+  .ishadow {
+      box-shadow: inset 1px 2px 3px rgba(0, 0, 0, 0.1);
+      }
+
+  .databox {
+      @apply flex flex-col flex-nowrap w-full h-full px-0 pt-2 pb-4 rounded-md mb-4
+      bg-slate-100 border border-slate-300 
+      dark:bg-slate-800 dark:border-slate-700;
+      }
+
+  .cards {
+     @apply flex w-full h-full flex-row flex-wrap justify-between gap-x-4 items-stretch;
+     }
+
+  .cards h3 {
+    @apply font-jura w-full text-lg text-slate-600
+          dark:text-slate-300;
+    }
+
+  /* Cards */
+  .cards .card00,
+  .cards .card14,
+  .cards .card24,
+  .cards .card34,
+  .cards .card44 {
+    /* box-shadow: inset 1px 2px 3px rgba(0, 0, 0, 0.1); */
+    @apply flex flex-row flex-wrap items-start rounded-md mb-4
+          bg-slate-100 border border-slate-300 
+          dark:bg-slate-800 dark:border-slate-700;
+    }
+
+  .cards .card14 { @apply w-full px-4 pt-2 pb-4; }
+  .cards .card24 { @apply w-full px-4 pt-2 pb-4; }
+  .cards .card34 { @apply w-full px-4 pt-2 pb-4; }
+  .cards .card44 { @apply w-full px-4 pt-2 pb-4; }
+
+  @media (min-width: 641px) {
+    .cards .card14 { @apply w-[48%] grow; }
+    .cards .card24 { @apply w-full; }
+    .cards .card34 { @apply w-full; }
+    .cards .card44 { @apply w-full; }
+  }
+
+  @media (min-width: 768px) {
+    .cards .card14 { @apply w-[48%] grow; }
+    .cards .card24 { @apply w-[48%] grow; }
+    .cards .card34 { @apply w-full; }
+    .cards .card44 { @apply w-full; }
+  }
+
+  @media (min-width: 1024px) {
+    .cards .card14 { @apply w-[30%] grow; }
+    .cards .card24 { @apply w-[48%] grow; }
+    .cards .card34 { @apply w-[64%] grow; }
+    .cards .card44 { @apply w-full; }
+    }
+
+  @media (min-width: 1280px) {
+    .cards .card14 { @apply w-[23%] grow; }
+    .cards .card24 { @apply w-[31%] grow; }
+    .cards .card34 { @apply w-[48%] grow; }
+    }
+
+} 
