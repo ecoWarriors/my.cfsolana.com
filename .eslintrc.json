@@ -1,0 +1,40 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "plugin:vue/strongly-recommended",
+    "google",
+    "plugin:vuejs-accessibility/recommended",
+    "prettier"
+  ],
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "parser": "@typescript-eslint/parser",
+    "sourceType": "module"
+  },
+  "plugins": [
+    "vue",
+    "vuejs-accessibility",
+    "@typescript-eslint",
+    "unused-imports"
+  ],
+  "rules": {
+    "require-jsdoc": "off",
+    "no-unused-vars": "off",
+    "object-curly-spacing": "off",
+    "max-len": "off",
+    "vue/multi-word-component-names": "off",
+    "vue/no-multiple-template-root": "off",
+    "vuejs-accessibility/label-has-for": [
+      "error",
+      {
+        "required": {
+          "every": ["id"]
+        },
+        "allowChildren": false
+      }
+    ]
+  }
+}
