@@ -24,7 +24,7 @@
     "axios": "^0.27.2",
     "eslint-config-google": "^0.14.0",
     "pinia": "^2.0.22",
-    "pinia-plugin-persistedstate": "^2.1.1",
+    "pinia-plugin-persistedstate": "^2.2.0",
     "solana-wallets-vue": "^0.4.1",
     "vee-validate": "^4.6.7",
     "vue": "^3.2.39",
