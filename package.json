@@ -19,7 +19,7 @@
     "@headlessui/vue": "^1.7.0",
     "@shubhamranjan/vue-hcaptcha": "^0.2.1",
     "@solana/wallet-adapter-wallets": "0.15",
-    "@solana/web3.js": "^1.60.0",
+    "@solana/web3.js": "^1.61.1",
     "@vee-validate/rules": "^4.6.7",
     "axios": "^0.27.2",
     "eslint-config-google": "^0.14.0",
