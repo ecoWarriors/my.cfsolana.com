@@ -46,7 +46,7 @@
     "eslint": "^8.23.1",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-unused-imports": "^2.0.0",
-    "eslint-plugin-vue": "^9.4.0",
+    "eslint-plugin-vue": "^9.5.1",
     "eslint-plugin-vuejs-accessibility": "^1.2.0",
     "postcss": "^8.4.16",
     "prettier-eslint": "^15.0.1",
