@@ -22,7 +22,7 @@
     >
       <MenuItems id="mmenu">
         <MenuItem class="block text-slate-50 border-t border-t-slate-600 border-b border-b-black p-3 transition-all space-x-2">
-          <div>{{ displayVerificationStatus }}</div>
+          <div>{{ verificationState }}</div>
         </MenuItem>
 
         <MenuItem
@@ -93,9 +93,10 @@
 <script lang="ts" setup>
 import {Menu, MenuButton, MenuItems, MenuItem} from '@headlessui/vue';
 import {ref, computed} from 'vue';
-import {useUserStore, VerificationState} from '../stores/user';
+import { useAuthStore } from '@/stores/auth';
+import { parseVerificationState } from '@/utils/user';
 
-const userStore = useUserStore();
+const authStore = useAuthStore();
 
 const items = ref([
   {
@@ -163,24 +164,5 @@ const userItems = ref([
   },
 ]);
 
-const displayVerificationStatus = computed(() => {
-  switch (userStore.user.verification) {
-    case VerificationState.UNKNOWN:
-      return 'Not Verified';
-    case VerificationState.ANONYMOUS:
-      return 'Not Verified';
-    case VerificationState.PARTIAL:
-      return 'Needs More Info';
-    case VerificationState.PENDING:
-      return 'Verification Pending';
-    case VerificationState.REVIEW:
-      return 'Verification In Review';
-    case VerificationState.SUSPENDED:
-      return 'Suspended';
-    case VerificationState.VERIFIED:
-      return "Verified";
-    default:
-      return "Not Verified";
-  }
-});
+const verificationState = computed(() => parseVerificationState(authStore.user?.verification));
 </script>

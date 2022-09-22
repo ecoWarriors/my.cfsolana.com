@@ -15,13 +15,11 @@
 </template>
 
 <script lang="ts" setup>
-import BaseCard from '../components/BaseCard.vue';
-import EcoTokenLogo from '../components/EcoTokenLogo.vue';
-import {useUserStore} from '../stores/user';
-import BalanceCard from '../components/dashboard/BalanceCard.vue';
-import NFTCard from '../components/dashboard/NFTCard.vue';
-import ProjectsCard from '../components/dashboard/ProjectsCard.vue';
-import BuySellCard from '../components/dashboard/BuySellCard.vue';
+import {useAuthStore} from '@/stores/auth';
+import BalanceCard from '@/components/dashboard/BalanceCard.vue';
+import NFTCard from '@/components/dashboard/NFTCard.vue';
+import ProjectsCard from '@/components/dashboard/ProjectsCard.vue';
+import BuySellCard from '@/components/dashboard/BuySellCard.vue';
 
-const userStore = useUserStore();
+const authStore = useAuthStore();
 </script>

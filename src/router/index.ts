@@ -1,55 +1,33 @@
 import {createRouter, createWebHistory, RouteRecordRaw} from 'vue-router';
-import Home from '../views/Home.vue';
-import Wallet from '../views/Wallet.vue';
-import Dashboard from '../views/Dashboard.vue';
-import ForgotPassword from '../views/ForgotPassword.vue';
-import History from '../views/History.vue';
-import Settings from '../views/Settings.vue';
-import Projects from '../views/Projects.vue';
 import NFT from '../views/NFT.vue';
-import Profile from '../views/Profile.vue';
-import Rewards from '../views/Rewards.vue';
-import SupportCenter from '../views/SupportCenter.vue';
-import ContactUs from '../views/ContactUs.vue';
-import Logout from '../views/LogOut.vue';
-import Login from '../views/Login.vue';
-import Register from '../views/Register.vue';
-import {useGlobalStore} from '../stores/global';
+import { useAuthStore } from '@/stores/auth';
 
-// const globalStore = useGlobalStore();
-
-// The routes for navigating the dashboard, names are used for the `to` parameter which can be a url or name
+// routes for navigating dashboard
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/login',
     name: 'Login',
-    component: Login,
-    meta: {
-      secure: true,
-    },
+    component: () => import("@/views/Login.vue"),
   },
   {
     path: '/forgotpass',
     name: 'Forgot Password',
-    component: ForgotPassword,
+    component: () => import("@/views/ForgotPassword.vue"),
   },
   {
     path: '/register',
     name: 'Register',
-    component: Register,
+    component: () => import("@/views/Register.vue"),
   },
   {
     path: '/',
     name: 'Home',
-    component: Home,
-    meta: {
-      secure: true,
-    },
+    component: () => import("@/views/Home.vue"),
   },
   {
     path: '/dashboard',
     name: 'Dashboard',
-    component: Dashboard,
+    component: () => import("@/views/Dashboard.vue"),
     meta: {
       secure: true,
     },
@@ -57,7 +35,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/wallet',
     name: 'Wallet',
-    component: Wallet,
+    component: () => import("@/views/Wallet.vue"),
     meta: {
       secure: true,
     },
@@ -65,7 +43,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/history',
     name: 'History',
-    component: History,
+    component: () => import("@/views/History.vue"),
     meta: {
       secure: true,
     },
@@ -73,7 +51,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/settings',
     name: 'Settings',
-    component: Settings,
+    component: () => import("@/views/Settings.vue"),
     meta: {
       secure: true,
     },
@@ -81,7 +59,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/projects',
     name: 'Projects',
-    component: Projects,
+    component: () => import("@/views/Projects.vue"),
     meta: {
       secure: true,
     },
@@ -97,7 +75,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/profile',
     name: 'Profile',
-    component: Profile,
+    component: () => import("@/views/Profile.vue"),
     meta: {
       secure: true,
     },
@@ -105,7 +83,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/rewards',
     name: 'Rewards',
-    component: Rewards,
+    component: () => import("@/views/Rewards.vue"),
     meta: {
       secure: true,
     },
@@ -113,7 +91,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/support',
     name: 'Support',
-    component: SupportCenter,
+    component: () => import("@/views/SupportCenter.vue"),
     meta: {
       secure: true,
     },
@@ -121,15 +99,10 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/contact',
     name: 'Contact',
-    component: ContactUs,
+    component: () => import("@/views/ContactUs.vue"),
     meta: {
       secure: true,
     },
-  },
-  {
-    path: '/logout',
-    name: 'Logout',
-    component: Logout,
   },
 ];
 
@@ -139,24 +112,20 @@ const router = createRouter({
   routes,
 });
 
-
-router.beforeEach(async (to, from, next) => {
-  const globalStore = useGlobalStore();
-  if (to.meta.secure) {
-    if (localStorage.loggedIn === '0' && to.name !== 'Login') {
-      return next('/login');
-    }
-    if (to.name === 'Logout') {
-      localStorage.loggedIn = 0;
-      globalStore.global.loggedIn = false;
-      return next('/login');
-    }
-    if (localStorage.loggedIn === '1') {
-      globalStore.global.loggedIn = true;
-      return next();
-    }
+router.beforeEach(async (to: any) => {
+  const authStore = useAuthStore();
+  
+  if (
+    // first check if secure route
+    to.meta.secure &&
+    // make sure the user is authenticated
+    !authStore.isAuthenticated &&
+    // ❗️ Avoid an infinite redirect
+    to.name !== 'Login'
+  ) {
+    // redirect the user to the login page
+    return { name: 'Login' }
   }
-  return next();
 });
 
 export default router;

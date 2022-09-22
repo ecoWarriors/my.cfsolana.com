@@ -15,11 +15,6 @@
         <div class="relative flex flex-row  justify-between  w-fit h-full float-right z-5 space-x-3 ml-8">
           <font-awesome-icon
             icon="user"
-            @click="globalStore.global.loggedIn = !globalStore.global.loggedIn"
-
-            :class="globalStore.global.loggedIn ? 'text-slate-600 dark:text-slate-200' : 'text-slate-300 dark:text-slate-500' "
-            class="  cursor-pointer
-                            "
           />
           <font-awesome-icon
             icon="ruler"
@@ -53,13 +48,11 @@ import RulerComponent from './RulerComponent.vue';
 import ColorPalette from './ColorPalette.vue';
 import CodePalette from './CodePalette.vue';
 import FontPalette from './FontPalette.vue';
-import {useGlobalStore} from '../stores/global';
 import {ref, computed} from 'vue';
 const ruler = ref(false);
 const twcode = ref(false);
 const palette = ref(false);
 const fontpal = ref(false);
-const globalStore = useGlobalStore();
 
 const loggedIn = computed(() => {
   return localStorage.loggedIn;

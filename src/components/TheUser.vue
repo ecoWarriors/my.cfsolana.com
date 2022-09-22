@@ -2,10 +2,10 @@
   <Menu>
     <MenuButton class="hidden sm:flex items-center justify-end w-full h-full space-x-2 mr-6 ">
       <span class="flex items-center justify-items-end h-full dark:text-slate-100">
-        {{ userStore.user.username }}
+        {{ authStore.user?.username }}
       </span>
       <img
-        :src="userStore.user.icon"
+        src=""
         alt="user-icon"
         class="rounded-full w-12 h-12"
       >
@@ -17,10 +17,10 @@
 
     <div class="flex items-center justify-end w-full h-full space-x-2 mr-6 visible sm:hidden">
       <span class="flex items-center justify-items-end h-full dark:text-slate-100">
-        {{ userStore.user.username }}
+        {{ authStore.user?.username }}
       </span>
       <img
-        :src="userStore.user.icon"
+        src=""
         alt="user-icon"
         class="rounded-full w-12 h-12"
       >
@@ -58,6 +58,21 @@
             <span>{{ item.name }}</span>
           </a>
         </MenuItem>
+        <MenuItem
+          class=""
+          v-slot="{ active }"
+          @click="handleLogout"
+        >
+          <a
+          :class="[
+              'p-3 first:rounded-t-xl last:rounded-b-xl transition-all space-x-2 border-t border-white dark:border-slate-600',
+              { 'dark:bg-slate-900 dark:text-white': active },
+            ]"
+          >
+            <font-awesome-icon icon="external-link" />
+            <span>Logout</span>
+          </a>
+        </MenuItem>
       </MenuItems>
     </transition>
   </Menu>
@@ -65,10 +80,16 @@
 <script lang="ts" setup>
 import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue';
 import { ref, computed } from 'vue';
-import { useUserStore } from '../stores/user';
-import { parseVerificationState } from '../utils/utils';
+import { useAuthStore } from '@/stores/auth';
+import { parseVerificationState } from '@/utils/user';
+import router from '@/router';
 
-const userStore = useUserStore();
+const authStore = useAuthStore();
+
+const handleLogout = () => {
+  authStore.logout();
+  router.push('/');
+}
 
 const items = ref([
   {
@@ -91,12 +112,7 @@ const items = ref([
     link: '/contact',
     icon: 'comment',
   },
-  {
-    name: 'Logout',
-    link: '/logout',
-    icon: 'external-link',
-  },
 ]);
 
-const verificationState = computed(() => parseVerificationState(userStore.user.verification));
+const verificationState = computed(() => parseVerificationState(authStore.user?.verification));
 </script>

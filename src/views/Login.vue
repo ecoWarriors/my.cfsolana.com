@@ -19,9 +19,9 @@
         >
           <form
             id="login"
-            v-if="!wallet.connected.value"
             class="input01 flex flex-col space-y-2 mt-5"
-            @submit.prevent="onSubmit"
+            @submit="onSubmit"
+            
           >
             <label for="email-username">
               <input
@@ -48,7 +48,8 @@
                 form="login"
                 class="submit01 w-40 tracking-widest"
               >
-                LOGIN
+                <span v-if="loading" class="spinner-border spinner-border-sm"></span>
+                <span>LOGIN</span>
               </button>
             </div>
           </form>
@@ -103,29 +104,37 @@
 }
 </style>
 
-<script lang="ts" setup>
-import {ref, computed} from 'vue';
-import {WalletMultiButton, useWallet} from 'solana-wallets-vue';
-import {hcaptcha} from '@shubhamranjan/vue-hcaptcha';
-import {useGlobalStore} from '../stores/global';
-import {RouterLink} from 'vue-router';
-import router from '../router';
-import {useTheme} from '../composables/theme';
+<script lang="ts">
+  import { storeToRefs } from 'pinia';
+  import { useAuthStore } from '@/stores/auth';
+  import router from '@/router';
 
-const wallet = useWallet();
-const globalStore = useGlobalStore();
-const dark = ref(true);
+  export default {
+    name: 'Login',
+    data(): any {
+      return {
+        user: '',
+        password: '',
+      }
+    },
+    methods: {
+      async onSubmit(event: any) {
+        event.preventDefault();
+        const authStore = useAuthStore();
+        // TODO: resolve this https://github.com/vuejs/vue/issues/8625#issuecomment-825863212
+        const success = await authStore.authenticateUser((this as any).user, (this as any).password);
 
-const user = ref('');
-const password = ref('');
-
-const onSubmit = () => {
-  if (user.value === 'eco' && password.value === 'eco') {
-    globalStore.global.loggedIn = true;
-    localStorage.loggedIn = 1;
-    router.push('/dashboard');
-  } else {
-    localStorage.loggedIn = 0;
+        if (success) {
+          router.push('/');
+        }
+      }
+    },
+    setup(): any {
+      const { loading, error } = storeToRefs(useAuthStore());
+      return {
+        loading,
+        error
+      }
+    }
   }
-};
 </script>

@@ -73,7 +73,6 @@ library.add(
 const pinia = createPinia();
 pinia.use(piniaPersistedState);
 
-
 createApp(App)
   .use(SolanaWallets, walletOptions)
   .use(pinia)
