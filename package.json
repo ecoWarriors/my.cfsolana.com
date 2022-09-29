@@ -22,7 +22,7 @@
     "@solana/web3.js": "^1.63.1",
     "@types/web-bluetooth": "^0.0.15",
     "@vee-validate/rules": "^4.6.9",
-    "@vueuse/core": "^9.2.0",
+    "@vueuse/core": "^9.3.0",
     "axios": "^0.27.2",
     "eslint-config-google": "^0.14.0",
     "i": "^0.3.7",
