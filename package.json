@@ -19,7 +19,7 @@
     "@headlessui/vue": "^1.7.3",
     "@shubhamranjan/vue-hcaptcha": "^0.2.1",
     "@solana/wallet-adapter-wallets": "0.15",
-    "@solana/web3.js": "^1.63.1",
+    "@solana/web3.js": "^1.64.0",
     "@types/web-bluetooth": "^0.0.15",
     "@vee-validate/rules": "^4.7.0",
     "@vueuse/core": "^9.3.0",
